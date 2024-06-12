@@ -45,6 +45,7 @@ If you appreciate this project, remember to give it a star!
 </details>
 
 # Get Started
+
 **Step 0.** Prerequisites:
  - torch with 1.9.0
  - python with 3.8.8
@@ -52,6 +53,8 @@ If you appreciate this project, remember to give it a star!
  - dataset
    - MS COCO 2017
    - (Optional) PASCAL VOC 2007 + 2012
+  
+  
 **Step 1.** `cd` to the **root directory of the project** and install the local MMDet.
 ```
 # Prepare mmcv-full.
@@ -72,7 +75,7 @@ Open `configs/_base_/datasets/coco_detection.py` then modify:
 data_root = 'your/path/to/coco2017/'
 ...
 ```
-**Step 3.** Modify the pretrained ckpt path. Treat Retinanet-resnet18 as example: 
+**Step 3.** Modify the pretrained ckpt path. Treat Retinanet-resnet18 as example.
 Open `configs/_base_/datasets/coco_detection.py` then modify:
 ```
 ...
@@ -84,14 +87,14 @@ load_from = 'your/path/to/retinanet_r18_fpn_1x_coco_20220407_171055-614fd399.pth
 ```
 Note that all the pretrained ckpts are downloaded from https://mmdetection.readthedocs.io/en/v2.28.2/model_zoo.html.
 
-**Step 4.** Launch your quant procedure. Treat Retinanet-resnet18 as example:
+**Step 4.** Launch your quant procedure. Treat Retinanet-resnet18 as example. Exec the bash shell:
 ```
 root@Long:/workspace/code/Quant/hqod# tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_HQOD_retinanet_18_coco_w4a4.sh
 ```
+Work!
 
 **Step A.** If you want to modify the quant setting, please refer to `mqbconfig` folder.
 
-**Step B.** If you want to modify the quant setting, please refer to `mqbconfig` folder.
 
 
 To be continue :astonished:
