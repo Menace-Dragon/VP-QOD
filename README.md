@@ -3,7 +3,7 @@
 
   This project is built upon [MQBench](https://github.com/ModelTC/MQBench)(V0.0.7) and [MMDetection](https://github.com/open-mmlab/mmdetection/tree/2.x)(V2.28.2), with adjustments made to the codebases of both and deep integration achieved. Experimental setups for Vanilla PTQ, Advanced PTQ, and QAT, among others, can be conducted based on existing Detector & Config. However, this framework is only suitable for quantizing detectors in an **academic setting**. Alignment and deployment across various hardware platforms are not supported.
 
-如果你喜欢该工程，记得点个星星！如果你有学术论文上的引用需求，请别忘了引用HQOD and QFOD:
+If you appreciate this project, remember to give it a star!
 
 <details open>
 <summary>Major features</summary>
@@ -43,24 +43,61 @@
   - [ ] Support advance PTQ (which extra utilize reconstruction), such as AdaRound, BRECQ and PD-Quant.
 
 </details>
-:astonished:
-项目描述：简洁地介绍项目的目的和内容。
 
-安装指南：如何安装和设置项目以进行开发。
+# Get Started
+**Step 0.** Prerequisites:
+ - torch with 1.9.0
+ - python with 3.8.8
+ - cuda with 11.2
+ - dataset
+   - MS COCO 2017
+   - (Optional) PASCAL VOC 2007 + 2012
+**Step 1.** `cd` to the **root directory of the project** and install the local MMDet.
+```
+# Prepare mmcv-full.
+pip install -U openmim --use-feature=2020-resolver
+mim install mmcv-full
 
-使用说明：如何使用项目的核心功能。
+# install local MMDet project.
+pip install -v -e .
 
-快速示例：提供一个简单的使用示例。
+# install other packages.
 
-快捷键：如果是工具类项目，列出可用的快捷键。
+```
 
-路线图：展示项目未来的开发计划。
+**Step 2.** Modify the dataset path. 
+Open `configs/_base_/datasets/coco_detection.py` then modify:
+```
+...
+data_root = 'your/path/to/coco2017/'
+...
+```
+**Step 3.** Modify the pretrained ckpt path. Treat Retinanet-resnet18 as example: 
+Open `configs/_base_/datasets/coco_detection.py` then modify:
+```
+...
+# Modify the backbone ckpt path.
+init_cfg=dict(type='Pretrained', checkpoint='your/path/to/resnet18-5c106cde.pth')),
+...
+# Modify the fp32 ckpt path.
+load_from = 'your/path/to/retinanet_r18_fpn_1x_coco_20220407_171055-614fd399.pth'
+```
+Note that all the pretrained ckpts are downloaded from https://mmdetection.readthedocs.io/en/v2.28.2/model_zoo.html.
 
-贡献指南：如何为项目贡献代码或报告问题。
+**Step 4.** Launch your quant procedure. Treat Retinanet-resnet18 as example:
+```
+root@Long:/workspace/code/Quant/hqod# tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_HQOD_retinanet_18_coco_w4a4.sh
+```
 
-学习资源：提供有关项目相关领域的学习资源链接。
+**Step A.** If you want to modify the quant setting, please refer to `mqbconfig` folder.
 
-版权和许可：说明项目的版权和使用许可。
+**Step B.** If you want to modify the quant setting, please refer to `mqbconfig` folder.
 
+
+To be continue :astonished:
+
+
+
+如果你有学术论文上的引用需求，请别忘了引用HQOD and QFOD:
 
 HQOD指标放榜（包括参数文件放链接）：
