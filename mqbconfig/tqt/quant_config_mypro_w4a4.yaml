@@ -1,0 +1,32 @@
+extra_prepare_dict:
+    extra_qconfig_dict:
+        w_observer: PoTModeObserver
+        a_observer: PoTModeObserver
+        w_fakequantize: TqtFakeQuantize
+        a_fakequantize: TqtFakeQuantize
+        w_qscheme:
+            bit: 4
+            symmetry: True
+            sign: True  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: True
+        a_qscheme:
+            bit: 4
+            symmetry: True
+            sign: False  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: True
+
+quantize:
+    quantize_type: naive_ptq # support naive_ptq or advanced_ptq
+    cali_batchnum: 256  # 越多越好？？似乎是的
+    quant_algorithm: tqt
+
+training:
+    my_buff_flag: 1  # 重新编码意思 0 为 false; 1 为 hqod; 2 为 hardet
+    qloss_flag: True
+    pretrained_flag: True
+    fold_bn_flag: False
+misc:
+    resume: False
+

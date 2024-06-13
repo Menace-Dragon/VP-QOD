@@ -1,0 +1,72 @@
+extra_prepare_dict:
+    extra_qconfig_dict:
+        w_observer: MinMaxObserver
+        a_observer: EMAMSEObserver
+        w_fakequantize: LearnableFakeQuantize
+        a_fakequantize: LearnableFakeQuantize
+        w_qscheme:
+            bit: 8
+            symmetry: True
+            sign: True  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+        a_qscheme:
+            bit: 8
+            symmetry: True
+            sign: False  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+    preserve_attr:
+        [transform, anchor_generator, compute_loss, postprocess_detections]
+        # anchor_generator
+        # compute_loss
+        # postprocess_detections
+
+quantize:
+    quantize_type: naive_ptq # support naive_ptq or advanced_ptq
+    cali_batchnum: 64  # 越多越好？？似乎是的
+    quant_algorithm: lsq
+# model:                    # architecture details
+#     type: resnet18        # model name
+#     kwargs:
+#         num_classes: 1000
+#     path: /path-of-pretrained
+dataset:
+    type: COCO
+    data_path: ../COCO
+    num_classes: 81
+    aspect_ratio_group_factor: 3
+    # path: /path-of-imagenet
+    # batch_size: 64
+    # num_workers: 4
+    # pin_memory: True
+    # input_size: 224
+    # test_resize: 256
+training:
+    device: cuda
+    use_baseline: 
+    batch_size: 8
+    start_epoch: 0
+    epochs: 25
+    workers: 8
+    lr: 0.004
+    lr_steps: [8, 14, 19, 22]
+    lr_gamma: 0.4
+    momentum: 0.9
+    weight_decay: 0.00008
+    print_freq: 100
+    my_buff_flag: True
+    qloss_flag: True
+    pretrained_flag: True
+
+misc:
+    model: retinanet_res50  # retinanet/ssd300
+    output_dir: save_weights/QAT/COCO_RetinaNet_Res50_bat16_usebase_w8a8
+    resume:  # 注意一下这个
+    amp: False  # 混合精度训练
+dist:
+    world_size: 1
+    dist_url: env://
+
+process:
+    seed: 1005

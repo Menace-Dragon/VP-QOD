@@ -1,0 +1,72 @@
+extra_prepare_dict:
+    extra_qconfig_dict:
+        w_observer: MinMaxObserver
+        a_observer: EMAMSEObserver
+        w_fakequantize: LearnableFakeQuantize
+        a_fakequantize: LearnableFakeQuantize
+        w_qscheme:
+            bit: 4
+            symmetry: True
+            sign: True  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+        a_qscheme:
+            bit: 4
+            symmetry: True
+            sign: False  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+    preserve_attr:
+        [transform, anchor_generator, compute_loss, postprocess_detections]
+        # anchor_generator
+        # compute_loss
+        # postprocess_detections
+
+quantize:
+    quantize_type: naive_ptq # support naive_ptq or advanced_ptq
+    cali_batchnum: 64  # 越多越好？？似乎是的
+    quant_algorithm: lsq
+# model:                    # architecture details
+#     type: resnet18        # model name
+#     kwargs:
+#         num_classes: 1000
+#     path: /path-of-pretrained
+dataset:
+    type: VOC0712
+    data_path: /workspace/share/datasets/VOC
+    num_classes: 21
+    aspect_ratio_group_factor: 3
+    # path: /path-of-imagenet
+    # batch_size: 64
+    # num_workers: 4
+    # pin_memory: True
+    # input_size: 224
+    # test_resize: 256
+training:
+    device: cuda
+    use_baseline: save_weights/ORI/VOC_Retinanet_Res18_bat32/model-29.pth
+    batch_size: 8
+    start_epoch: 0
+    epochs: 20
+    workers: 8
+    lr: 0.001
+    lr_steps: [6, 13, 18]
+    lr_gamma: 0.1
+    momentum: 0.9
+    weight_decay: 0.00008
+    print_freq: 1600
+    my_buff_flag: True
+    qloss_flag: True
+    pretrained_flag: True
+
+misc:
+    model: retinanet_res18  # retinanet/ssd300
+    output_dir: save_weights/QAT/LSQ_MyPro/VOC_RetinaNet_Res18_bat16_usebase_w4a4
+    resume:  # 注意一下这个
+    amp: False  # 混合精度训练
+dist:
+    world_size: 1
+    dist_url: env://
+
+process:
+    seed: 1005

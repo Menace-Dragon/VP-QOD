@@ -1,0 +1,69 @@
+extra_prepare_dict:
+    extra_qconfig_dict:
+        w_observer: MinMaxObserver
+        a_observer: EMAMSEObserver
+        w_fakequantize: LearnableFakeQuantize
+        a_fakequantize: LearnableFakeQuantize
+        w_qscheme:
+            bit: 8
+            symmetry: True
+            sign: True  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+        a_qscheme:
+            bit: 8
+            symmetry: True
+            sign: False  # MQB就缺个这个，整蒙了
+            per_channel: False
+            pot_scale: False
+    preserve_attr:
+        [compute_loss, postprocess]
+
+quantize:
+    quantize_type: naive_ptq # support naive_ptq or advanced_ptq
+    cali_batchnum: 64  # 越多越好？？似乎是的
+    quant_algorithm: lsq
+# model:                    # architecture details
+#     type: resnet18        # model name
+#     kwargs:
+#         num_classes: 1000
+#     path: /path-of-pretrained
+dataset:
+    type: VOC0712  # VOC2012 VOC2007 VOC0712 COCO
+    data_path: /workspace/share/datasets/VOC
+    num_classes: 21
+    aspect_ratio_group_factor: 3
+    # path: /path-of-imagenet
+    # batch_size: 64
+    # num_workers: 4
+    # pin_memory: True
+    # input_size: 224
+    # test_resize: 256
+training:
+    device: cuda
+    use_baseline: save_weights/ORI/VOC_SSD300_Res50_bat128/model-9.pth
+    batch_size: 16
+    start_epoch: 0
+    epochs: 8
+    workers: 8
+    lr: 0.0001
+    lr_steps: [7]
+    lr_gamma: 0.1
+    momentum: 0.9
+    weight_decay: 0.0001
+    print_freq: 850
+    my_buff_flag: True
+    qloss_flag: True
+    pretrained_flag: True
+
+misc:
+    model: ssd300_res50  # retinanet/ssd300
+    output_dir: save_weights/QAT/LSQ_MyPro/VOC_ssd300_Res50_bat32_usebase_w8a8
+    resume: 
+    amp: False  # 混合精度训练
+dist:
+    world_size: 1
+    dist_url: env://
+
+process:
+    seed: 1005

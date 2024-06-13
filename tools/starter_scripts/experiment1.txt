@@ -1,0 +1,8 @@
+tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_retinanet_18_coco_w4a4.sh
+tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_retinanet_18_coco_w2a2.sh
+tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_HQOD_retinanet_18_coco_w4a4.sh
+tools/starter_scripts/retinanet_18/qat/coco/dist_lsq_HQOD_retinanet_18_coco_w2a2.sh
+tools/starter_scripts/retinanet_50/qat/coco/dist_lsq_retinanet_50_coco_w4a4.sh
+tools/starter_scripts/retinanet_50/qat/coco/dist_lsq_retinanet_50_coco_w2a2.sh
+tools/starter_scripts/retinanet_50/qat/coco/dist_lsq_HQOD_retinanet_50_coco_w4a4.sh
+tools/starter_scripts/retinanet_18/dist_train_retinanet_18_coco_AQD.sh
