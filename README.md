@@ -35,7 +35,7 @@ If you appreciate this project, remember to give it a star!
 
 - **Flexible development**
 
-  This project effectively assimilates and integrates the characteristics of MQBench and MMDetection, streamlining the adaptation process between detectors and torch.fx, It facilitates the convenient extension of other quantization algorithms and the extension of detectors.
+  This project effectively assimilates and integrates the characteristics of MQBench and MMDetection, streamlining the adaptation process between detectors and torch.fx. It facilitates the convenient extension of other quantization algorithms and the extension of detectors.
 
 - **Future plans**
 
@@ -97,10 +97,11 @@ Work!
 
 
 
-To be continue :astonished:
+To be continue .... :astonished:
 
 
-
+<!-- 
 如果你有学术论文上的引用需求，请别忘了引用HQOD and QFOD:
 
 HQOD指标放榜（包括参数文件放链接）：
+ -->
