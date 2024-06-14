@@ -65,6 +65,7 @@ mim install mmcv-full
 pip install -v -e .
 
 # install other packages.
+pip install easydict
 
 ```
 
