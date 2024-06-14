@@ -18,7 +18,7 @@ If you appreciate this project, remember to give it a star!
 | LSQ   <br> [ICLR'2020]  | [Learned step size quantization](https://arxiv.org/abs/1902.08153) |
 | TQT <br> [MLSys'2020]  | [Trained quantization thresholds for accurate and efficient fixed-point inference of deep neural networks](https://arxiv.org/abs/1903.08066) |
 | AQD     <br> [CVPR'2021] | [Aqd: Towards accurate quantized object detection](https://arxiv.org/abs/2007.06919) |
-| HQOD (Ours) <br> [ICME'2024] | [HQOD: Harmonious Quantization for Object Detection](https://arxiv.org/abs/2107.08430) |
+| HQOD (Ours) <br> [ICME'2024] | [HQOD: Harmonious Quantization for Object Detection](https://time.is/Anywhere_on_Earth) |
 
 
 - **Supported Object Detectors**
@@ -76,7 +76,7 @@ data_root = 'your/path/to/coco2017/'
 ...
 ```
 **Step 3.** Modify the pretrained ckpt path. Treat Retinanet-resnet18 as example.
-Open `configs/_base_/datasets/coco_detection.py` then modify:
+Open `configs/retinanet/retinanet_r18_fpn_1x_coco_quant_w4a4.py` then modify:
 ```
 ...
 # Modify the backbone ckpt path.
