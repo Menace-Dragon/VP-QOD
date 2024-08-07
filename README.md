@@ -12,7 +12,7 @@ If you appreciate this project, remember to give it a star!
 
   The project currently supports Quantization-Aware Training (QAT) algorithms for object detection models. The available QAT algorithms include:
   
-| Model | Paper URL |
+| Quant Method | Paper URL |
 | :------:  | :-------------------------------------------------------------------- |
 | DSQ      <br> [ICCV'2019]  | [Differentiable Soft Quantization: Bridging Full-Precision and Low-Bit Neural Networks](https://arxiv.org/abs/1908.05033) |
 | LSQ   <br> [ICLR'2020]  | [Learned step size quantization](https://arxiv.org/abs/1902.08153) |
